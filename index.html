@@ -584,6 +584,7 @@
         let isPlaying = false;
 
         function updateMusicUI() {
+            console.log('Updating UI, isPlaying:', isPlaying);
             if (isPlaying) {
                 musicIcon.innerText = '📻';
                 musicIcon.classList.add('animate-bounce');
@@ -600,14 +601,27 @@
         }
 
         musicToggle.addEventListener('click', () => {
+            console.log('Button clicked. Current state isPlaying:', isPlaying);
             if (isPlaying) {
                 bgAudio.pause();
                 isPlaying = false;
+                updateMusicUI();
             } else {
-                bgAudio.play();
-                isPlaying = true;
+                const playPromise = bgAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        console.log('Playback started successfully');
+                        isPlaying = true;
+                        updateMusicUI();
+                    }).catch(error => {
+                        console.error('Playback failed:', error);
+                        // Reset UI if it failed
+                        isPlaying = false;
+                        updateMusicUI();
+                        alert('音楽の再生に失敗しました。ページを再読み込みしてから、もう一度お試しください。');
+                    });
+                }
             }
-            updateMusicUI();
         });
 
         // Initialize audio on first user interaction (standard browser policy)

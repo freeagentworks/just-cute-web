@@ -1,0 +1,31 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.settings/
+
+# Directries
+node_modules/
+dist/
+build/
+.temp/
+.tmp/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Project specific
+# audio/bgm.mp3 # Uncomment if you don't want to include the BGM file in Git
