@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Neko & Friends | Premium Kawaii Experience</title>
+    <meta name="description" content="Award-winning aesthetic web design featuring Sanrio-style characters and golden fortune.">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kpink: '#ffb7c5',
+                        kpurple: '#e0bbe4',
+                        kgold: '#ffd700',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased selection:bg-kpink selection:text-white">
+
+    <div class="award-badge uppercase tracking-widest bg-kpink shadow-[0_0_20px_rgba(255,183,197,0.5)]">AWARDS 2025</div>
+    
+    <div id="cursor-parent"></div>
+    <div id="cursor-main" class="fixed w-8 h-8 rounded-full border-2 border-kpink pointer-events-none z-[10001] transition-transform duration-200 ease-out"></div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 p-6">
+        <div class="container mx-auto flex justify-between items-center glass rounded-2xl px-8 py-3">
+            <div class="text-3xl font-black gradient-text tracking-tighter">KAWAII.FORTUNE</div>
+            <div class="hidden md:flex gap-10 font-bold text-sm uppercase tracking-widest">
+                <a href="#home" class="hover:text-kpink transition-colors">Home</a>
+                <a href="#characters" class="hover:text-kpink transition-colors">Characters</a>
+                <a href="#footer" class="hover:text-kpink transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden text-2xl">☰</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="hero-content">
+                <h2 class="text-lg font-black text-kpink tracking-[0.3em] mb-4 uppercase">Wealth x Kawaii</h2>
+                <h1 class="text-7xl md:text-9xl font-black mb-8 leading-[0.9] tracking-tighter">
+                    <span class="gradient-text">BRINGING</span><br>
+                    <span class="text-gray-900">LUCKY</span><br>
+                    <span class="text-gray-900 opacity-20">VIBES.</span>
+                </h1>
+                <p class="text-xl text-gray-500 mb-10 max-w-md leading-relaxed">
+                    幸運を呼ぶサンリオ風キャラクターたちが、あなたのデジタルライフを彩ります。
+                    贅沢なアニメーションと極上の可愛さを。
+                </p>
+                <div class="flex gap-4">
+                    <button class="bg-gray-900 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-kpink transition-all transform hover:-translate-y-1">
+                        Explore Now
+                    </button>
+                    <button class="glass px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-white transition-all transform hover:-translate-y-1">
+                        Our Story
+                    </button>
+                </div>
+            </div>
+            <div class="relative flex justify-center items-center">
+                <div class="absolute w-[120%] h-[120%] bg-gradient-radial from-kpink/20 to-transparent blur-3xl rounded-full"></div>
+                <img src="cat_main.png" alt="Hero Cat" class="w-full max-w-lg z-10 animate-float drop-shadow-[0_35px_35px_rgba(255,183,197,0.4)]">
+                
+                <!-- Floating decorative elements -->
+                <div class="absolute top-10 right-0 text-6xl animate-bounce" style="animation-delay: 0.5s;">💰</div>
+                <div class="absolute bottom-10 left-0 text-5xl animate-bounce" style="animation-delay: 1s;">✨</div>
+                <div class="absolute top-1/2 left-0 text-4xl animate-pulse" style="animation-delay: 0.2s;">🍀</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Section -->
+    <section id="characters" class="py-32 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20">
+                <div class="max-w-xl">
+                    <h2 class="text-5xl font-black mb-6 tracking-tighter">Meet The <span class="gradient-text">Gang.</span></h2>
+                    <p class="text-gray-500 text-lg italic">個性豊かな7人のラッキーフレンズ。どの子がお気に入り？</p>
+                </div>
+                <div class="mt-8 md:mt-0">
+                    <span class="text-8xl font-black opacity-5">FEEL GOOD</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Card 1: Gold Cat -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('gold-cat')">
+                    <div class="relative mb-8">
+                        <div class="absolute inset-0 bg-kpink/10 rounded-full blur-2xl group-hover:bg-kpink/20 transition-all"></div>
+                        <img src="cat_main.png" alt="Gold Cat" class="w-48 mx-auto relative z-10 transition-transform group-hover:rotate-6">
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">GOLD CAT</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Classic Fortune</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-kpink/20 px-3 py-1 rounded-full font-bold">LUCK: MAX</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Sakura Bunny -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('sakura-bunny')">
+                    <div class="relative mb-8">
+                        <div class="absolute inset-0 bg-kpurple/10 rounded-full blur-2xl group-hover:bg-kpurple/20 transition-all"></div>
+                        <img src="rabbit_pink.png" alt="Sakura Bunny" class="w-48 mx-auto relative z-10 transition-transform group-hover:-rotate-6">
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">SAKURA BUNNY</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Love & Luck</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-kpurple/20 px-3 py-1 rounded-full font-bold">LUCK: High</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Dollar Devil -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('dollar-devil')">
+                    <div class="relative mb-8">
+                        <div class="absolute inset-0 bg-gray-900/5 rounded-full blur-2xl group-hover:bg-gray-900/10 transition-all"></div>
+                        <img src="kuromi_style.png" alt="Dollar Devil" class="w-48 mx-auto relative z-10 transition-transform group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">DOLLAR DEVIL</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Wealth Rebel</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-gray-900/10 px-3 py-1 rounded-full font-bold">LUCK: Risk</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Kity Luck -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('kity-luck')">
+                    <div class="relative mb-8">
+                        <div class="absolute inset-0 bg-kgold/10 rounded-full blur-2xl group-hover:bg-kgold/20 transition-all"></div>
+                        <img src="koban_cat_sanrio.png" alt="Kity Luck" class="w-48 mx-auto relative z-10 transition-transform group-hover:translate-y-[-10px]">
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">KITY LUCK</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Pure Joy</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-kgold/20 px-3 py-1 rounded-full font-bold">LUCK: Stable</span>
+                    </div>
+                </div>
+
+                <!-- Card 5 (Panda SVG) -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('mochi-panda')">
+                    <div class="relative mb-8 h-48 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gray-200/20 rounded-full blur-2xl group-hover:bg-gray-200/30 transition-all"></div>
+                        <svg class="w-40 h-40 relative z-10 transition-transform group-hover:scale-110 drop-shadow-lg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Ears -->
+                            <circle cx="25" cy="25" r="12" fill="#333" stroke="#000" stroke-width="2"/>
+                            <circle cx="75" cy="25" r="12" fill="#333" stroke="#000" stroke-width="2"/>
+                            <!-- Body -->
+                            <rect x="20" y="30" width="60" height="55" rx="30" fill="white" stroke="#000" stroke-width="2"/>
+                            <!-- Eye Patches -->
+                            <ellipse cx="38" cy="50" rx="8" ry="10" fill="#333"/>
+                            <ellipse cx="62" cy="50" rx="8" ry="10" fill="#333"/>
+                            <!-- Eyes -->
+                            <circle cx="38" cy="50" r="2" fill="white"/>
+                            <circle cx="62" cy="50" r="2" fill="white"/>
+                            <!-- Nose -->
+                            <path d="M47 58 Q50 62 53 58" stroke="#000" stroke-width="2" fill="none"/>
+                            <!-- Koban -->
+                            <rect x="35" y="65" width="30" height="40" rx="15" fill="#ffd700" stroke="#b8860b" stroke-width="2" transform="rotate(-10 50 85)"/>
+                            <text x="42" y="90" fill="#b8860b" font-weight="bold" font-size="8" transform="rotate(-10 50 85)">千万</text>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">MOCHI PANDA</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Koban Collector</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-gray-200/50 px-3 py-1 rounded-full font-bold">LUCK: Growth</span>
+                    </div>
+                </div>
+
+                <!-- Card 6 (Penguin SVG) -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('cool-penny')">
+                    <div class="relative mb-8 h-48 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-blue-100/20 rounded-full blur-2xl group-hover:bg-blue-100/30 transition-all"></div>
+                        <svg class="w-40 h-40 relative z-10 transition-transform group-hover:scale-110 drop-shadow-lg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Body -->
+                            <path d="M50 20 C25 20 20 50 20 70 C20 90 35 95 50 95 C65 95 80 90 80 70 C80 50 75 20 50 20Z" fill="#2d3436" stroke="#000" stroke-width="2"/>
+                            <!-- White Tummy -->
+                            <path d="M50 40 C35 40 30 55 30 75 C30 90 40 93 50 93 C60 93 70 90 70 75 C70 55 65 40 50 40Z" fill="white"/>
+                            <!-- Eyes -->
+                            <circle cx="43" cy="55" r="3" fill="#000"/>
+                            <circle cx="57" cy="55" r="3" fill="#000"/>
+                            <circle cx="44" cy="54" r="1" fill="#fff"/>
+                            <circle cx="58" cy="54" r="1" fill="#fff"/>
+                            <!-- Beak -->
+                            <path d="M48 62 L52 62 L50 68 Z" fill="#fab1a0" stroke="#000" stroke-width="1"/>
+                            <!-- Dollars -->
+                            <rect x="60" y="65" width="25" height="15" rx="3" fill="#55efc4" stroke="#00b894" stroke-width="2" transform="rotate(20 72 72)"/>
+                            <text x="68" y="75" fill="#00b894" font-weight="bold" font-size="8" transform="rotate(20 72 72)">$</text>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">COOL PENNY</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Dollar Diver</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-blue-100/50 px-3 py-1 rounded-full font-bold">LUCK: Flow</span>
+                    </div>
+                </div>
+
+                <!-- Card 7 (Owl SVG) -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('wise-treasure')">
+                    <div class="relative mb-8 h-48 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-yellow-100/20 rounded-full blur-2xl group-hover:bg-yellow-100/30 transition-all"></div>
+                        <svg class="w-40 h-40 relative z-10 transition-transform group-hover:scale-110 drop-shadow-lg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Ears/Tufts -->
+                            <path d="M30 35 L20 20 L40 30 Z" fill="#d1ccc0" stroke="#000" stroke-width="2"/>
+                            <path d="M70 35 L80 20 L60 30 Z" fill="#d1ccc0" stroke="#000" stroke-width="2"/>
+                            <!-- Body -->
+                            <rect x="25" y="30" width="50" height="60" rx="25" fill="#d1ccc0" stroke="#000" stroke-width="2"/>
+                            <!-- Wings -->
+                            <path d="M25 50 Q15 60 25 75" stroke="#000" stroke-width="2" fill="none"/>
+                            <path d="M75 50 Q85 60 75 75" stroke="#000" stroke-width="2" fill="none"/>
+                            <!-- Tummy -->
+                            <circle cx="50" cy="65" r="18" fill="#f7f1e3" stroke="#000" stroke-width="1" stroke-dasharray="2 2"/>
+                            <!-- Face/Eyes Area -->
+                            <circle cx="40" cy="50" r="12" fill="white" stroke="#000" stroke-width="1.5"/>
+                            <circle cx="60" cy="50" r="12" fill="white" stroke="#000" stroke-width="1.5"/>
+                            <!-- Pupils -->
+                            <circle cx="40" cy="50" r="5" fill="#000"/>
+                            <circle cx="60" cy="50" r="5" fill="#000"/>
+                            <!-- Sparkle -->
+                            <circle cx="42" cy="48" r="1.5" fill="white"/>
+                            <circle cx="62" cy="48" r="1.5" fill="white"/>
+                            <!-- Beak -->
+                            <path d="M48 56 L52 56 L50 62 Z" fill="#ffb8b8" stroke="#000" stroke-width="1"/>
+                            <!-- Treasure Chest -->
+                            <rect x="30" y="78" width="40" height="18" rx="4" fill="#84817a" stroke="#000" stroke-width="2"/>
+                            <rect x="30" y="78" width="40" height="5" rx="2" fill="#595652"/>
+                            <circle cx="50" cy="87" r="3" fill="#ffd700" stroke="#000" stroke-width="1"/>
+                            <!-- Sparkles -->
+                            <text x="20" y="30" font-size="10" fill="#ffd700">✨</text>
+                            <text x="75" y="85" font-size="8" fill="#ffd700">✨</text>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">WISE TREASURE</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Box Guardian</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-yellow-100/50 px-3 py-1 rounded-full font-bold">LUCK: Wise</span>
+                    </div>
+                </div>
+
+                <!-- Card 8 (Shiba Inu SVG) -->
+                <div class="char-card glass p-10 rounded-[3rem] text-center group cursor-pointer" onclick="openModal('shiba-lucky')">
+                    <div class="relative mb-8 h-48 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-orange-100/20 rounded-full blur-2xl group-hover:bg-orange-100/30 transition-all"></div>
+                        <svg class="w-40 h-40 relative z-10 transition-transform group-hover:scale-110 drop-shadow-lg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Ears -->
+                            <path d="M30 30 L20 10 L45 25 Z" fill="#f0932b" stroke="#000" stroke-width="2"/>
+                            <path d="M70 30 L80 10 L55 25 Z" fill="#f0932b" stroke="#000" stroke-width="2"/>
+                            <!-- Face/Body -->
+                            <rect x="25" y="25" width="50" height="60" rx="25" fill="#f0932b" stroke="#000" stroke-width="2"/>
+                            <!-- White Muzzle/Tummy -->
+                            <circle cx="50" cy="65" r="22" fill="white" stroke="#000" stroke-width="1.5"/>
+                            <!-- Eyes -->
+                            <circle cx="40" cy="45" r="3" fill="#000"/>
+                            <circle cx="60" cy="45" r="3" fill="#000"/>
+                            <!-- Nose/Mouth -->
+                            <circle cx="50" cy="52" r="2" fill="#000"/>
+                            <path d="M47 55 Q50 58 53 55" stroke="#000" stroke-width="1.5" fill="none"/>
+                            <!-- Bandana (Karakusa Pattern) -->
+                            <path d="M25 65 Q50 85 75 65 L70 60 Q50 75 30 60 Z" fill="#6ab04c" stroke="#000" stroke-width="1.5"/>
+                            <circle cx="40" cy="68" r="1.5" fill="white" opacity="0.5"/>
+                            <circle cx="60" cy="72" r="1.5" fill="white" opacity="0.5"/>
+                            <circle cx="50" cy="78" r="1.5" fill="white" opacity="0.5"/>
+                            <!-- Koban -->
+                            <rect x="35" y="70" width="30" height="40" rx="15" fill="#ffd700" stroke="#b8860b" stroke-width="2" transform="rotate(5 50 90)"/>
+                            <text x="42" y="95" fill="#b8860b" font-weight="bold" font-size="8" transform="rotate(5 50 90)">千万</text>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black mb-2">SHIBA LUCKY</h3>
+                    <p class="text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">Loyal Fortune</p>
+                    <div class="flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs bg-orange-100/50 px-3 py-1 rounded-full font-bold">LUCK: Loyal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Character Modal -->
+    <div id="char-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="glass w-[90%] max-w-2xl rounded-[4rem] p-12 relative z-10 transform scale-95 opacity-0 transition-all duration-500 overflow-hidden" id="modal-content">
+            <button class="absolute top-8 right-8 text-3xl font-black" onclick="closeModal()">×</button>
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div id="modal-img-container" class="w-64 h-64 flex items-center justify-center relative">
+                    <!-- Dynamic image or SVG will be inserted here -->
+                </div>
+                <div class="flex-1">
+                    <h2 id="modal-name" class="text-5xl font-black mb-2 gradient-text"></h2>
+                    <p id="modal-tagline" class="text-sm font-bold uppercase tracking-widest text-kpink mb-6"></p>
+                    <div class="space-y-4 text-gray-600 mb-8">
+                        <p id="modal-desc" class="leading-relaxed"></p>
+                        <div class="flex gap-2" id="modal-tags"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white/50 p-4 rounded-3xl">
+                            <p class="text-[10px] font-bold uppercase text-gray-400">Main Item</p>
+                            <p id="modal-item" class="font-black text-lg"></p>
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-3xl">
+                            <p class="text-[10px] font-bold uppercase text-gray-400">Power</p>
+                            <p id="modal-power" class="font-black text-lg"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CUSTOM CURSOR & TRAIL ---
+        const cursorMain = document.getElementById('cursor-main');
+        const cursorParent = document.getElementById('cursor-parent');
+        let trailCount = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursorMain, {
+                duration: 0.1,
+                x: e.clientX - 16,
+                y: e.clientY - 16,
+                ease: 'power2.out'
+            });
+
+            // Create trail particle every few frames
+            if (trailCount % 5 === 0) {
+                createTrail(e.clientX, e.clientY);
+            }
+            trailCount++;
+        });
+
+        document.addEventListener('mousedown', (e) => {
+            gsap.to(cursorMain, { scale: 1.5 });
+            createFlowerExplosion(e.clientX, e.clientY);
+        });
+        document.addEventListener('mouseup', () => gsap.to(cursorMain, { scale: 1 }));
+
+        function createFlowerExplosion(x, y) {
+            const flowerCount = 15;
+            const colors = ['#ffb7c5', '#ff8da1', '#fbcce7', '#ff6b81', '#ffffff'];
+            
+            for (let i = 0; i < flowerCount; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'fixed pointer-events-none z-[10002]';
+                
+                // Randomly choose flower emoji or circle petal
+                const isEmoji = Math.random() > 0.5;
+                if (isEmoji) {
+                    flower.innerHTML = '🌸';
+                    flower.style.fontSize = Math.random() * 20 + 10 + 'px';
+                } else {
+                    flower.style.width = Math.random() * 10 + 5 + 'px';
+                    flower.style.height = flower.style.width;
+                    flower.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    flower.style.borderRadius = '50% 0 50% 0'; // Petal shape
+                }
+                
+                flower.style.left = x + 'px';
+                flower.style.top = y + 'px';
+                document.body.appendChild(flower);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 200 + 100;
+                
+                gsap.to(flower, {
+                    duration: Math.random() * 1.5 + 1,
+                    x: Math.cos(angle) * velocity,
+                    y: Math.sin(angle) * velocity + 100, // Gravity effect
+                    rotation: Math.random() * 720,
+                    opacity: 0,
+                    ease: 'power2.out',
+                    onComplete: () => flower.remove()
+                });
+            }
+        }
+
+        function createTrail(x, y) {
+            const p = document.createElement('div');
+            p.className = 'trail-particle';
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            
+            // Randomly pick a cute pink shade
+            const pinks = ['#ffb7c5', '#ff8da1', '#fbcce7', '#ff6b81'];
+            p.style.backgroundColor = pinks[Math.floor(Math.random() * pinks.length)];
+            
+            cursorParent.appendChild(p);
+
+            gsap.to(p, {
+                duration: 1.2,
+                scale: Math.random() * 1.5,
+                opacity: 0,
+                y: y + (Math.random() - 0.5) * 60,
+                x: x + (Math.random() - 0.5) * 60,
+                rotate: Math.random() * 360,
+                onComplete: () => p.remove()
+            });
+        }
+
+        // --- THREE.JS BACKGROUND ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Gold Particles
+        const geometry = new THREE.TorusGeometry(0.5, 0.2, 16, 100);
+        const material = new THREE.MeshPhongMaterial({ color: 0xffd700, shininess: 100 });
+        const coins = [];
+
+        for(let i=0; i<30; i++) {
+            const coin = new THREE.Mesh(geometry, material);
+            coin.position.set((Math.random()-0.5)*20, (Math.random()-0.5)*20, (Math.random()-0.5)*10);
+            coin.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, 0);
+            coin.scale.setScalar(Math.random()*0.5 + 0.2);
+            scene.add(coin);
+            coins.push(coin);
+        }
+
+        // Light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        camera.position.z = 10;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            coins.forEach(c => {
+                c.rotation.y += 0.01;
+                c.position.y -= 0.005;
+                if(c.position.y < -10) c.position.y = 10;
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- GSAP SCROLL TRIGGER ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".hero-content > *", {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power4.out"
+        });
+
+        // --- MODAL LOGIC ---
+        const charData = {
+            'gold-cat': {
+                name: 'GOLD CAT',
+                tagline: 'Classic Fortune',
+                desc: '王道の幸運を運ぶリーダー。大きな小判は千万両！出会うだけでその日の運気がマックスになると言われています。',
+                tags: ['Lucky', 'Leader', 'Wealth'],
+                item: '大判小判',
+                power: '運気上昇 ★★★★★',
+                img: '<img src="cat_main.png" class="w-full">'
+            },
+            'sakura-bunny': {
+                name: 'SAKURA BUNNY',
+                tagline: 'Love & Luck',
+                desc: 'ピンクの耳が自慢の癒し系。お金だけでなく、素敵な縁も運んできてくれる欲張りなウサギちゃんです。',
+                tags: ['Love', 'Healing', 'Fortune'],
+                item: '桜の小判',
+                power: '縁結び ★★★★☆',
+                img: '<img src="rabbit_pink.png" class="w-full">'
+            },
+            'dollar-devil': {
+                name: 'DOLLAR DEVIL',
+                tagline: 'Wealth Rebel',
+                desc: '少しやんちゃなドル箱使い。一攫千金のスリルが大好きな、クールで可愛い勝負師です。',
+                tags: ['Risk', 'Big Win', 'Cool'],
+                item: 'ドル箱',
+                power: '一攫千金 ★★★☆☆',
+                img: '<img src="kuromi_style.png" class="w-full">'
+            },
+            'kity-luck': {
+                name: 'KITY LUCK',
+                tagline: 'Pure Joy',
+                desc: '「ただ可愛いだけ」を体現する、みんなのアイドル。穏やかな毎日と安定した富を提供します。',
+                tags: ['Pop', 'Cute', 'Stable'],
+                item: '黄金の小判',
+                power: '現状維持 ★★★★★',
+                img: '<img src="koban_cat_sanrio.png" class="w-full">'
+            },
+            'mochi-panda': {
+                name: 'MOCHI PANDA',
+                tagline: 'Koban Collector',
+                desc: 'もっちりボディに幸運が詰まったパンダ。じわじわと、でも確実にお金が貯まる不思議な力を持っています。',
+                tags: ['Saving', 'Mochi', 'Patience'],
+                item: '千万両小判',
+                power: '貯蓄運 ★★★★☆',
+                img: document.querySelector('div[onclick="openModal(\'mochi-panda\')"] svg').outerHTML
+            },
+            'cool-penny': {
+                name: 'COOL PENNY',
+                tagline: 'Dollar Diver',
+                desc: 'ドルの海を泳ぎ回る自由奔放なペンギン。世界中から様々な富をキャッチして持ち帰ってくれます。',
+                tags: ['Global', 'Active', 'Cash'],
+                item: 'ドル札',
+                power: 'キャッシュフロー ★★★☆☆',
+                img: document.querySelector('div[onclick="openModal(\'cool-penny\')"] svg').outerHTML
+            },
+            'wise-treasure': {
+                name: 'WISE TREASURE',
+                tagline: 'Box Guardian',
+                desc: '夜の森で宝箱を守る賢者。無駄遣いを見張ってくれる、家計の強い味方です。',
+                tags: ['Defense', 'Wise', 'Storage'],
+                item: '重厚なドル箱',
+                power: '資産守護 ★★★★★',
+                img: document.querySelector('div[onclick="openModal(\'wise-treasure\')"] svg').outerHTML
+            },
+            'shiba-lucky': {
+                name: 'SHIBA LUCKY',
+                tagline: 'Loyal Fortune',
+                desc: '日本の心を忘れない、忠実な柴犬キャラクター。緑の唐草模様のバンダナがトレードマーク。あなたをどこまでも追いかけて幸運を届けます。',
+                tags: ['Loyal', 'Japan', 'Happy'],
+                item: '黄金の小判',
+                power: '忠誠心 ★★★★★',
+                img: document.querySelector('div[onclick="openModal(\'shiba-lucky\')"] svg').outerHTML
+            }
+        };
+
+        function openModal(id) {
+            const data = charData[id];
+            const modal = document.getElementById('char-modal');
+            const content = document.getElementById('modal-content');
+            
+            document.getElementById('modal-name').innerText = data.name;
+            document.getElementById('modal-tagline').innerText = data.tagline;
+            document.getElementById('modal-desc').innerText = data.desc;
+            document.getElementById('modal-item').innerText = data.item;
+            document.getElementById('modal-power').innerText = data.power;
+            document.getElementById('modal-img-container').innerHTML = data.img;
+            
+            const tagsCont = document.getElementById('modal-tags');
+            tagsCont.innerHTML = '';
+            data.tags.forEach(t => {
+                const s = document.createElement('span');
+                s.className = 'text-[10px] font-black bg-gray-100 px-3 py-1 rounded-full uppercase';
+                s.innerText = `#${t}`;
+                tagsCont.appendChild(s);
+            });
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('char-modal');
+            const content = document.getElementById('modal-content');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
