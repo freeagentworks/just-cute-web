@@ -64,6 +64,19 @@
 
     <canvas id="bg-canvas"></canvas>
 
+    <!-- Music Toggle -->
+    <button id="music-toggle"
+        class="fixed bottom-8 right-8 w-16 h-16 rounded-full glass z-[1000] flex items-center justify-center text-2xl shadow-xl transition-all hover:scale-110 active:scale-95 group">
+        <span id="music-icon" class="animate-pulse">🎵</span>
+        <div
+            class="absolute -top-12 right-0 bg-white/80 backdrop-blur px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-kpink shadow-lg border border-kpink/20">
+            Music: OFF
+        </div>
+    </button>
+    <audio id="bg-audio" loop>
+        <source src="audio/bgm.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 p-6">
         <div class="container mx-auto flex justify-between items-center glass rounded-2xl px-8 py-3">
@@ -124,7 +137,7 @@
                 <div class="max-w-xl">
                     <h2 class="text-5xl font-black mb-6 tracking-tighter">Meet The <span
                             class="gradient-text">Gang.</span></h2>
-                    <p class="text-gray-500 text-lg italic">個性豊かな7人のラッキーフレンズ。どの子がお気に入り？</p>
+                    <p class="text-gray-500 text-lg italic">個性豊かな8人のラッキーフレンズ。どの子がお気に入り？</p>
                 </div>
                 <div class="mt-8 md:mt-0">
                     <span class="text-8xl font-black opacity-5">FEEL GOOD</span>
@@ -562,6 +575,50 @@
                 modal.classList.add('hidden');
             }, 500);
         }
+
+        // --- BGM LOGIC ---
+        const bgAudio = document.getElementById('bg-audio');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        const musicTooltip = musicToggle.querySelector('div');
+        let isPlaying = false;
+
+        function updateMusicUI() {
+            if (isPlaying) {
+                musicIcon.innerText = '📻';
+                musicIcon.classList.add('animate-bounce');
+                musicIcon.classList.remove('animate-pulse');
+                musicTooltip.innerText = 'Music: ON';
+                musicToggle.classList.add('border-kpink', 'shadow-[0_0_20px_rgba(255,183,197,0.4)]');
+            } else {
+                musicIcon.innerText = '🎵';
+                musicIcon.classList.remove('animate-bounce');
+                musicIcon.classList.add('animate-pulse');
+                musicTooltip.innerText = 'Music: OFF';
+                musicToggle.classList.remove('border-kpink', 'shadow-[0_0_20px_rgba(255,183,197,0.4)]');
+            }
+        }
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                bgAudio.pause();
+                isPlaying = false;
+            } else {
+                bgAudio.play();
+                isPlaying = true;
+            }
+            updateMusicUI();
+        });
+
+        // Initialize audio on first user interaction (standard browser policy)
+        document.body.addEventListener('click', () => {
+            // Only try to auto-play once if not already playing
+            if (!isPlaying && bgAudio.paused) {
+                // We don't force play here because user might want them off, 
+                // but this unlocks the audio context.
+                console.log('Audio Context Unlocked');
+            }
+        }, { once: true });
     </script>
 </body>
 

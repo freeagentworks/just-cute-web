@@ -21,6 +21,12 @@ body {
   cursor: none;
 }
 
+@media (hover: none) and (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
 /* Custom Cursor Trail */
 #cursor-parent {
   pointer-events: none;
@@ -41,6 +47,12 @@ body {
   pointer-events: none;
   transform: translate(-50%, -50%);
   opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  #cursor-main, #cursor-parent {
+    display: none !important;
+  }
 }
 
 /* Glassmorphism */
@@ -138,4 +150,54 @@ section {
   z-index: 100;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .award-badge {
+    display: none;
+  }
+}
+
+/* --- Mobile Specific Overrides --- */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    h1 {
+        font-size: 3.5rem !important;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-content div {
+        justify-content: center;
+    }
+
+    #modal-content {
+        padding: 2rem 1.5rem !important;
+        border-radius: 2.5rem !important;
+    }
+
+    #modal-img-container {
+        width: 10rem !important;
+        height: 10rem !important;
+    }
+
+    #char-modal h2 {
+        font-size: 2.5rem !important;
+        text-align: center;
+    }
+
+    #modal-tagline {
+        text-align: center;
+    }
 }
